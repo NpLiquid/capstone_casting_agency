@@ -91,7 +91,7 @@ All tests are kept in that file and should be maintained as updates are made to 
 
 ### Getting started
 
-- Base URL: At present this app can only be run locally and it is not hosted as a base URL. The backend app is hosted at the default, http://127.0.0.1:5000/
+- Base URL: This API is hosted in Heroku at --put here the URL--. The backend app is hosted at the default, http://127.0.0.1:5000/
 
 - Authentication: This version of the application requires authentication via JWT Tokens (Auth0). 
 
@@ -117,6 +117,8 @@ Currently the API will return four error types when requests fail:
 ### Endpoints
 
 The API uses JWT Tokens as an authentication method in all the following endpoints. Please use the previously provided Authorized JWT Tokens for each endpoint and role.
+
+For test purposes, a JSON file Postman Collection named `Udacity-casting-agency` is provided with Authorized JWT Tokens.
 
 #### GET/movies
 
