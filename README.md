@@ -129,7 +129,41 @@ The API uses JWT Tokens as an authentication method in all the following endpoin
 - Sample: ``` curl http://127.0.0.1:5000/movies ```
 
 ```javascript
-
+{
+    "movie": [
+        {
+            "cast": [
+                "Felicity Jones"
+            ],
+            "id": 1,
+            "release_date": "13 December 2016",
+            "title": "Rogue One A Star Wars Story"
+        },
+        {
+            "cast": [
+                "Pedro Infante"
+            ],
+            "id": 2,
+            "release_date": "13 September 1951",
+            "title": "Full Speed Ahead"
+        },
+        {
+            "cast": [
+                "James Dean"
+            ],
+            "id": 3,
+            "release_date": "20 January 1956",
+            "title": "Rebel Without a Cause"
+        },
+        {
+            "cast": [],
+            "id": 4,
+            "release_date": "20 January 2021",
+            "title": "The Human Contract"
+        }
+    ],
+    "success": true
+}
 ```
 
 #### GET/actors
@@ -143,7 +177,45 @@ The API uses JWT Tokens as an authentication method in all the following endpoin
 - Sample: ``` curl http://127.0.0.1:5000/actors ```
 
 ```javascript
-
+{
+    "actor": [
+        {
+            "age": 24,
+            "filmography": [
+                "Rebel Without a Cause"
+            ],
+            "gender": "male",
+            "id": 1,
+            "name": "James Dean"
+        },
+        {
+            "age": 36,
+            "filmography": [
+                "Rogue One A Star Wars Story"
+            ],
+            "gender": "female",
+            "id": 2,
+            "name": "Felicity Jones"
+        },
+        {
+            "age": 38,
+            "filmography": [
+                "Full Speed Ahead"
+            ],
+            "gender": "male",
+            "id": 3,
+            "name": "Pedro Infante"
+        },
+        {
+            "age": 44,
+            "filmography": [],
+            "gender": "female",
+            "id": 4,
+            "name": "Paz Vega"
+        }
+    ],
+    "success": true
+}
 ```
 
 #### POST/movies
@@ -155,7 +227,14 @@ The API uses JWT Tokens as an authentication method in all the following endpoin
 - Sample: ``` curl http://127.0.0.1:5000/movies -X POST -H "Content-Type: application/json" -d '{"title":"Batman Lego 7","release_date":"14 July 2021"}' ```
 
 ```javascript
-
+{
+    "movie": {
+        "id": 5,
+        "release_date": "14 July 2021",
+        "title": "Batman Lego 7"
+    },
+    "success": true
+}
 ```
 
 #### POST/actors
@@ -168,7 +247,15 @@ The API uses JWT Tokens as an authentication method in all the following endpoin
 - Sample: ``` curl http://127.0.0.1:5000/actors -X POST -H "Content-Type: application/json" -d '{"name":"Morgan Freeman","age":83,"gender":"Male"}' ```
 
 ```javascript
-
+{
+    "actor": {
+        "age": 83,
+        "gender": "Male",
+        "id": 5,
+        "name": "Morgan Freeman"
+    },
+    "success": true
+}
 ```
 
 #### PATCH/movies/{movie_id}
@@ -178,10 +265,17 @@ The API uses JWT Tokens as an authentication method in all the following endpoin
 - Authorized roles:
    - Casting Director
    - Executive Producer
-- Sample: ``` curl http://127.0.0.1:5000/movies/1 -X PATCH -H "Content-Type: application/json" -d '{"title":"Batman Lego 7 Unleashed","release_date":"14 September 2021"}' ```
+- Sample: ``` curl http://127.0.0.1:5000/movies/5 -X PATCH -H "Content-Type: application/json" -d '{"title":"Batman Lego 7 Unleashed","release_date":"14 September 2021"}' ```
 
 ```javascript
-
+{
+    "movie": {
+        "id": 5,
+        "release_date": "14 September 2021",
+        "title": "Batman Lego 7 Unleashed"
+    },
+    "success": true
+}
 ```
 
 #### PATCH/actors/{actor_id}
@@ -191,10 +285,18 @@ The API uses JWT Tokens as an authentication method in all the following endpoin
 - Authorized roles:
    - Casting Director
    - Executive Producer
-- Sample: ``` curl http://127.0.0.1:5000/actors/1 -X PATCH -H "Content-Type: application/json" -d '{"name":"Morgan F.","age":84,"gender":"Male"}' ```
+- Sample: ``` curl http://127.0.0.1:5000/actors/5 -X PATCH -H "Content-Type: application/json" -d '{"name":"Morgan F.","age":84,"gender":"Male"}' ```
 
 ```javascript
-
+{
+    "actor": {
+        "age": 84,
+        "gender": "Male",
+        "id": 5,
+        "name": "Morgan F."
+    },
+    "success": true
+}
 ```
 
 
@@ -204,10 +306,17 @@ The API uses JWT Tokens as an authentication method in all the following endpoin
     - Deletes a movie of the given ID if it exists. Returns the id, title, and release date of the deleted movie, as well as the success message.
 - Authorized roles:
    - Executive Producer
-- Sample: ``` curl -X DELETE http://127.0.0.1:5000/movies/1  ```
+- Sample: ``` curl -X DELETE http://127.0.0.1:5000/movies/5  ```
 
 ```javascript
-
+{
+    "movie": {
+        "id": 5,
+        "release_date": "14 September 2021",
+        "title": "Batman Lego 7 Unleashed"
+    },
+    "success": true
+}
 ```
 
 #### DELETE/actors/{actor_id}
@@ -217,10 +326,18 @@ The API uses JWT Tokens as an authentication method in all the following endpoin
 - Authorized roles:
    - Casting Director
    - Executive Producer
-- Sample: ``` curl -X DELETE http://127.0.0.1:5000/actors/1  ```
+- Sample: ``` curl -X DELETE http://127.0.0.1:5000/actors/5  ```
 
 ```javascript
-
+{
+    "actor": {
+        "age": 84,
+        "gender": "Male",
+        "id": 5,
+        "name": "Morgan F."
+    },
+    "success": true
+}
 ```
 
 ## Authors
