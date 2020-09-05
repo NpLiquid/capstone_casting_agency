@@ -116,249 +116,111 @@ Currently the API will return four error types when requests fail:
 
 ### Endpoints
 
-#### GET/categories
+The API uses JWT Tokens as an authentication method in all the following endpoints. Please use the previously provided Authorized JWT Tokens for each endpoint and role.
+
+#### GET/movies
 
 - General:
-    - Returns a list of category objects and success value.
-- Sample: ``` curl http://127.0.0.1:5000/categories ```
+   - Returns a list of movie objects and success value.
+- Authorized roles:
+   - Casting Assistant
+   - Casting Director
+   - Executive Producer
+- Sample: ``` curl http://127.0.0.1:5000/movies ```
 
 ```javascript
-{
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "success": true
-}
-```
-
-#### GET/categories/{category_id}/questions
-
-- General:
-    - Returns a list of questions objects belonging to a category ID, success value, total number of questions belonging to a category ID, and the type of the category.
-- Sample: ``` curl http://127.0.0.1:5000/categories/2/questions ```
-
-```javascript
-{
-  "current_category": "Art", 
-  "questions": [
-    {
-      "answer": "Escher", 
-      "category": 2, 
-      "difficulty": 1, 
-      "id": 16, 
-      "question": "Which Dutch graphic artist\u2013initials M C was a creator of optical illusions?"
-    }, 
-    {
-      "answer": "Mona Lisa", 
-      "category": 2, 
-      "difficulty": 3, 
-      "id": 17, 
-      "question": "La Giaconda is better known as what?"
-    }, 
-    {
-      "answer": "One", 
-      "category": 2, 
-      "difficulty": 4, 
-      "id": 18, 
-      "question": "How many paintings did Van Gogh sell in his lifetime?"
-    }, 
-    {
-      "answer": "Jackson Pollock", 
-      "category": 2, 
-      "difficulty": 2, 
-      "id": 19, 
-      "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
-    }
-  ], 
-  "success": true, 
-  "total_questions": 4
-}
-```
-
-#### GET/questions
-
-- General:
-    - Returns a list of question objects, a list of category objects, success value, and total number of questions.
-    - Results are paginated in groups of 10. Include a request argument to choose page number, starting from 1.
-- Sample: ``` curl http://127.0.0.1:5000/questions ```
-
-```javascript
-{
-  "categories": {
-    "1": "Science", 
-    "2": "Art", 
-    "3": "Geography", 
-    "4": "History", 
-    "5": "Entertainment", 
-    "6": "Sports"
-  }, 
-  "questions": [
-    {
-      "answer": "Apollo 13", 
-      "category": 5, 
-      "difficulty": 4, 
-      "id": 2, 
-      "question": "What movie earned Tom Hanks his third straight Oscar nomination, in 1996?"
-    }, 
-    {
-      "answer": "Tom Cruise", 
-      "category": 5, 
-      "difficulty": 4, 
-      "id": 4, 
-      "question": "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
-    }, 
-    {
-      "answer": "Edward Scissorhands", 
-      "category": 5, 
-      "difficulty": 3, 
-      "id": 6, 
-      "question": "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
-    }, 
-    {
-      "answer": "Muhammad Ali", 
-      "category": 4, 
-      "difficulty": 1, 
-      "id": 9, 
-      "question": "What boxer's original name is Cassius Clay?"
-    }, 
-    {
-      "answer": "Brazil", 
-      "category": 6, 
-      "difficulty": 3, 
-      "id": 10, 
-      "question": "Which is the only team to play in every soccer World Cup tournament?"
-    }, 
-    {
-      "answer": "Uruguay", 
-      "category": 6, 
-      "difficulty": 4, 
-      "id": 11, 
-      "question": "Which country won the first ever soccer World Cup in 1930?"
-    }, 
-    {
-      "answer": "George Washington Carver", 
-      "category": 4, 
-      "difficulty": 2, 
-      "id": 12, 
-      "question": "Who invented Peanut Butter?"
-    }, 
-    {
-      "answer": "Lake Victoria", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 13, 
-      "question": "What is the largest lake in Africa?"
-    }, 
-    {
-      "answer": "The Palace of Versailles", 
-      "category": 3, 
-      "difficulty": 3, 
-      "id": 14, 
-      "question": "In which royal palace would you find the Hall of Mirrors?"
-    }, 
-    {
-      "answer": "Agra", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 15, 
-      "question": "The Taj Mahal is located in which Indian city?"
-    }
-  ], 
-  "success": true, 
-  "total_questions": 21
-}
-```
-
-#### POST/questions
-
-- General:
-    - Creates a new question using the submitted question, answer, difficulty, and category. Returns the id of the created question, success value, created question, category of the created question, total number of questions, and question list based on current page number to update the frontend.
-- Sample: ``` curl http://127.0.0.1:5000/questions?page=3 -X POST -H "Content-Type: application/json" -d '{"question":"In which continent is located Mexico?","answer":"America","difficulty":"1","category":"3"}' ```
-
-```javascript
-
-{
-  "created": 38, 
-  "current_category": 3, 
-  "question_created": "In which continent is located Mexico?", 
-  "questions": [
-    {
-      "answer": "America", 
-      "category": 3, 
-      "difficulty": 1, 
-      "id": 38, 
-      "question": "In which continent is located Mexico?"
-    }
-  ], 
-  "success": true, 
-  "total_questions": 21
-}
 
 ```
 
-#### POST/questions/search
+#### GET/actors
 
 - General:
-    - Returns a list of question objects based on a search term, success value, and total number of questions on current page number to update the frontend.
-- Sample: ``` curl http://127.0.0.1:5000/questions/search?page=1 -X POST -H "Content-Type: application/json" -d '{"searchTerm":"Africa"}' ```
-
+    - Returns a list of actors objects and success value.
+- Authorized roles:
+   - Casting Assistant
+   - Casting Director
+   - Executive Producer
+- Sample: ``` curl http://127.0.0.1:5000/actors ```
 
 ```javascript
-
-{
-  "questions": [
-    {
-      "answer": "Lake Victoria", 
-      "category": 3, 
-      "difficulty": 2, 
-      "id": 13, 
-      "question": "What is the largest lake in Africa?"
-    }
-  ], 
-  "success": true, 
-  "total_questions": 1
-}
 
 ```
 
-#### POST/quizzes
+#### POST/movies
 
 - General:
-    - Allows the user to play quizzes in the frontend.
-    - Returns a random question object based on a category and a success value.
-- Sample: ``` curl http://127.0.0.1:5000/quizzes -X POST -H "Content-Type: application/json" -d '{"previous_questions": [], "quiz_category": {"type": "Art", "id": "2"}}' ```
+    - Creates a new movie using the submitted title and release date. Returns the id, title, and release date of the created movie, as well as the success message.
+- Authorized roles:
+   - Executive Producer
+- Sample: ``` curl http://127.0.0.1:5000/movies -X POST -H "Content-Type: application/json" -d '{"title":"Batman Lego 7","release_date":"14 July 2021"}' ```
 
 ```javascript
-
-{
-  "question": {
-    "answer": "Jackson Pollock", 
-    "category": 2, 
-    "difficulty": 2, 
-    "id": 19, 
-    "question": "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
-  }, 
-  "success": true
-}
 
 ```
 
-#### DELETE/questions/{question_id}
+#### POST/actors
 
 - General:
-    - Deletes the question of the given ID if it exists. Returns the id of the deleted question and success value
-- Sample: ``` curl -X DELETE http://127.0.0.1:5000/questions/36  ```
+    - Creates a new actor using the submitted name, age, and gender. Returns the id, name, age, and gender of the created actor, as well as the success message.
+- Authorized roles:
+   - Casting Director
+   - Executive Producer
+- Sample: ``` curl http://127.0.0.1:5000/actors -X POST -H "Content-Type: application/json" -d '{"name":"Morgan Freeman","age":83,"gender":"Male"}' ```
 
 ```javascript
-{
-  "deleted": 36, 
-  "success": true
-}
+
+```
+
+#### PATCH/movies/{movie_id}
+
+- General:
+    - Updates the title and release date of the movie given ID if it exists. Returns the id, title, and release date of the updated movie, as well as the success message.
+- Authorized roles:
+   - Casting Director
+   - Executive Producer
+- Sample: ``` curl http://127.0.0.1:5000/movies/1 -X PATCH -H "Content-Type: application/json" -d '{"title":"Batman Lego 7 Unleashed","release_date":"14 September 2021"}' ```
+
+```javascript
+
+```
+
+#### PATCH/actors/{actor_id}
+
+- General:
+    - Updates the name, age, and gender of the actor given ID if it exists. Returns the id, name, age, and gender of the updated actor, as well as the success message.
+- Authorized roles:
+   - Casting Director
+   - Executive Producer
+- Sample: ``` curl http://127.0.0.1:5000/actors/1 -X PATCH -H "Content-Type: application/json" -d '{"name":"Morgan F.","age":84,"gender":"Male"}' ```
+
+```javascript
+
+```
+
+
+#### DELETE/movies/{movie_id}
+
+- General:
+    - Deletes a movie of the given ID if it exists. Returns the id, title, and release date of the deleted movie, as well as the success message.
+- Authorized roles:
+   - Executive Producer
+- Sample: ``` curl -X DELETE http://127.0.0.1:5000/movies/1  ```
+
+```javascript
+
+```
+
+#### DELETE/actors/{actor_id}
+
+- General:
+    - Deletes an actor of the given ID if it exists. Returns the id, name, age, and gender of the deleted actor, as well as the success message.
+- Authorized roles:
+   - Casting Director
+   - Executive Producer
+- Sample: ``` curl -X DELETE http://127.0.0.1:5000/actors/1  ```
+
+```javascript
+
 ```
 
 ## Authors
